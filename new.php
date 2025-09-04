@@ -1,10 +1,15 @@
 <?php
 require_once('connection.php');
-$query ="select * from users_table order by user_id ";
+require_once('classes/User.php');
 
-$stmt = $conn-> prepare($query);
-$stmt->execute();
-$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+$user = new User($conn);
+$result = $user -> getAllUsers();
+
+// $query ="select * from users_table order by user_id ";
+
+// $stmt = $conn-> prepare($query);
+// $stmt->execute();
+// $result = $stmt->fetchAll(PDO::FETCH_OBJ);
 ?>
 
 <!DOCTYPE html>
@@ -70,37 +75,33 @@ $result = $stmt->fetchAll(PDO::FETCH_OBJ);
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        
+        <form action="backend/user_code.php" method="post">
     <div class="row g-3">
   <div class="col-12">
-    <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+    <input type="text" class="form-control" placeholder="First name" aria-label="First name" name="first_name">
   </div>
+      <div class="row g-3">
   <div class="col-12">
-    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" name="last_name">
   </div>
-
-        <div class="row g-3">
+    <div class="row g-3">
   <div class="col-12">
-    <input type="email" class="form-control" placeholder="Email" aria-label="Email">
+    <input type="text" class="form-control" placeholder="Email" aria-label="Email" name="email">
   </div>
+    <div class="row g-3">
   <div class="col-12">
-    <input type="text" class="form-control" placeholder="Gender" aria-label="Gender>
-
-  </div> 
-  <div class="row g-3">
-  <div class="col-12">
-    <input type="text" class="form-control" placeholder="Address" aria-label="Address">
+    <input type="text" class="form-control" placeholder="Gender" aria-label="Gender" name="gender">
   </div>
+    <div class="row g-3">
   <div class="col-12">
-    <input type="date" class="form-control" placeholder="Date" aria-label="Date">
-
-  </div> 
-</div>
+    <input type="text" class="form-control" placeholder="Address" aria-label="Address" name="user_address">
+  </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary" name="btn_save" >Save changes</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
